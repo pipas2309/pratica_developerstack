@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { prisma } from '../config/database';
 import * as questionRepository from '../repositories/questionRepository';
 import * as answerRepository from '../repositories/answerRepository';
 
@@ -29,5 +28,9 @@ export async function get(req: Request, res: Response) {
 }
 
 export async function getById(req: Request, res: Response) {
-  // TODO
+  const { id } = req.params;
+
+  const result = await questionRepository.getUniqueQuestion(id);
+
+  res.send(result).status(200);
 }
