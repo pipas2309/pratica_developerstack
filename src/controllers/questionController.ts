@@ -10,7 +10,14 @@ export async function createQuestion(req: Request, res: Response) {
 }
 
 export async function createAnswer(req: Request, res: Response) {
-  // TODO
+  const { id } = req.params;
+  const { answeredBy, answer }: { answeredBy: string, answer: string } = req.body;
+  
+  const questionId = parseInt(id);
+  
+  await prisma.answers.create({data: {answeredBy, answer, questionId}});
+
+  res.sendStatus(201);
 }
 
 export async function get(req: Request, res: Response) {
