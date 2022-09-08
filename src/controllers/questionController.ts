@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
 import { prisma } from '../config/database';
+import * as questionRepository from '../repositories/questionRepository';
 import * as answerRepository from '../repositories/answerRepository';
 
 export async function createQuestion(req: Request, res: Response) {
   const { askedBy, question } = req.body;
 
-  await prisma.questions.create({data: {askedBy, question}});
+  await questionRepository.createQuestion(askedBy, question);
 
   res.sendStatus(201);
 }
