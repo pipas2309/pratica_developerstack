@@ -2,8 +2,11 @@ import { Request, Response } from 'express';
 import * as questionRepository from '../repositories/questionRepository';
 import * as answerRepository from '../repositories/answerRepository';
 
+import { IQuestionData } from '../types/questionTypes';
+import { IAnswerData } from '../types/answerTypes';
+
 export async function createQuestion(req: Request, res: Response) {
-  const { askedBy, question } = req.body;
+  const { askedBy, question }: IQuestionData = req.body;
 
   await questionRepository.createQuestion(askedBy, question);
 
@@ -12,7 +15,7 @@ export async function createQuestion(req: Request, res: Response) {
 
 export async function createAnswer(req: Request, res: Response) {
   const { id } = req.params;
-  const { answeredBy, answer }: { answeredBy: string, answer: string } = req.body;
+  const { answeredBy, answer }: IAnswerData = req.body;
     
   await answerRepository.createAnswer(answeredBy, answer, id);
 
